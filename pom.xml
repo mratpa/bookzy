@@ -55,7 +55,7 @@
           </snapshotRepository>
           <site>
             <id>site.server</id>
-            <url>http://localhost:8080/manager/text/deploy?path=</url>
+            <url>file://${project.build.outputDirectory}/releases/site/${project.version}/</url>
           </site>
         </distributionManagement>
 
