@@ -43,5 +43,20 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	   <distributionManagement>
+          <repository>
+            <id>staging</id>
+            <url>file://${project.build.outputDirectory}/releases/release/${project.version}/</url>
+          </repository>
+          <snapshotRepository>
+            <id>snapshots</id>
+            <url>file://${project.build.outputDirectory}/releases/snapshot/${project.version}/</url>
+          </snapshotRepository>
+          <site>
+            <id>site.server</id>
+            <url>file://${project.build.outputDirectory}/releases/site/${project.version}/</url>
+          </site>
+        </distributionManagement>
 
 </project>
