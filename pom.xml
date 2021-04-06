@@ -47,7 +47,7 @@
 			  <version>2.0</version>
 			  <configuration>
 			    <url>http://localhost:8080/manager/text</url>
-			    <path>/booksy</path>
+			    <path>/bookzy</path>
 			  </configuration>
 			</plugin>
 		</plugins>
