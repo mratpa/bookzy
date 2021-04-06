@@ -7,13 +7,15 @@ pipeline {
 	jdk 'my_jdk'
     }
 	stages {
+
+
 		stage('Compilation') {
             steps {
 
                // Get the code from a GitHub repository
                 git 'https://github.com/mratpa/bookzy.git'
-		bat "mvn clean "
-		}
+				bat "mvn clean "
+			}
           post{
               success{
                 echo "Git SCM pull successful!"
@@ -39,7 +41,6 @@ pipeline {
 			    emailext body: 'Stage: ${env.JOB_NAME} unit test failed!', subject: 'Unit test failed!', to: 'macharya@ainsight.com'
                 }
               }
-              }
 		}
 
 		stage('Build') {
@@ -56,8 +57,8 @@ pipeline {
                 }
               failure {
 			    emailext body: 'Stage: ${env.JOB_NAME} build failed!', subject: 'Build failed!', to: 'macharya@ainsight.com'
-               	 }
-              
+                }
+              }
 		}
 
 		stage('Deployment') {
@@ -75,6 +76,7 @@ pipeline {
 			    echo "Unstable deployment... deployment failed"
               }
             }
+		}
 	}
-   }
 }
+
