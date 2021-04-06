@@ -56,8 +56,8 @@ pipeline {
                 }
               failure {
 			    emailext body: 'Stage: ${env.JOB_NAME} build failed!', subject: 'Build failed!', to: 'macharya@ainsight.com'
-                }
-              }
+               	 }
+              
 		}
 
 		stage('Deployment') {
