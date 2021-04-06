@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven.
+        maven "my_mvn"
+    }
+
+    stage('Compilation') {
+            steps {
+
+		withMaven(jdk: 'my_jdk', maven: 'my_mvn') {
+                // Get the code from a GitHub repository
+                git 'https://github.com/mratpa/bookzy.git'
+				bat "mvn clean package deploy"
+        	}
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                    archiveArtifacts 'target/*.war'
+                }
+              }
+		}
+	}
+        
+    stage('Unit Test') {
+          steps {
+                bat "mvn test"
+		}
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                junit '**/target/surefire-reports/TEST-*.xml'
+                }
+              }
+	}
+
+    stage('Deploy') {
+            steps {
+		withMaven(jdk: 'my_jdk', maven: 'my_mvn') {
+        	bat "mvn -Dmaven.test.failure.ignore=true tomcat7:deploy"
+        	}
+		 }
+	}
+}
